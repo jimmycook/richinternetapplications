@@ -1,0 +1,9 @@
+# Todo List for Movies SPA
+
+Main aims: 
+
+Ticket buying on an SPA
+
+Show a list of movies available movies
+    Show a loader while the ajax request happens
+
