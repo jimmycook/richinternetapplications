@@ -1,8 +1,10 @@
 window.$ = window.jQuery = require('jquery')
 var moment = require('moment')
-var Vue = require('vue')
-Vue.use(require('vue-resource'))
-var app = require('./app')
+import Vue from 'vue'
+import App from './App.vue'
 var bootstrap = require('bootstrap')
 
-new Vue(app).$mount('#app')
+new Vue({
+  el: 'body',
+  components: { App }
+})

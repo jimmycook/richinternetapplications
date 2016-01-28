@@ -1,15 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+// Api Routes
+// 
+Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
+    Route::get('movies', 'ApiController@getMovies');
+    Route::get('movie/{id}', 'ApiController@getMovie');
+    Route::get('showings', 'ApiController@getAllShowings');
+    Route::get('showings/upcoming', 'ApiController@getUpcomingShowings');
+
+});
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
