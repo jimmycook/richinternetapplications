@@ -25838,13 +25838,14 @@ exports.default = {
                 vm.movies = data;
             });
         }
+
     },
     created: function created() {
         this.getMovies();
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"col-sm-3  \" v-for=\"movie in movies\">\n    <div class=\"panel\">\n        <div class=\"panel-body\">\n            <h3>{{ movie.name }}</h3>\n            <p>Rank #{{ movie.ranking }}</p>\n            <p>Directed By {{ movie.director }}</p>\n        </div>\n    </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"col-sm-3\" v-for=\"movie in movies\">\n    <div class=\"panel\">\n        <div class=\"panel-body\">\n            <h3>{{ movie.name }}</h3>\n            <p>Rank #{{ movie.ranking }}</p>\n            <p>Directed By {{ movie.director }}</p>\n        </div>\n    </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -25857,6 +25858,93 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":18,"vue-hot-reload-api":17}],23:[function(require,module,exports){
+'use strict';
+
+require('./calculator.js');
+
+},{"./calculator.js":24}],24:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Calculator class
+ *
+ * requires jQuery to be available
+ */
+
+var Calculator = function () {
+    function Calculator() {
+        _classCallCheck(this, Calculator);
+
+        this.output = 0;
+        this.stored;
+        this.operator;
+        this.refresh();
+    }
+
+    _createClass(Calculator, [{
+        key: 'input',
+        value: function input(value) {
+            if (value >= 0 && value <= 9) {
+                this.numberPressed(value);
+            } else {
+                if (value == 'C' || 'c') this.clear();else if (value == '+') this.operator(value);else if (value == '/') this.operator(value);else if (value == '-') this.operator(value);else if (value == '*') this.operator(value);else if (value == '=') this.equals();
+            }
+            this.refresh();
+        }
+    }, {
+        key: 'numberPressed',
+        value: function numberPressed(number) {
+            if (this.output == 0) {
+                this.editing = true;
+                this.output = number;
+            } else if (this.editing && this.output <= 100000000000000) {
+                this.output = this.output * 10 + parseInt(number);
+            }
+        }
+    }, {
+        key: 'operator',
+        value: function operator(value) {
+            this.stored = this.output;
+            this.output = 0;
+            this.operator = value;
+        }
+    }, {
+        key: 'clear',
+        value: function clear() {
+            this.output = 0;
+            this.stored = 0;
+            this.refresh();
+        }
+    }, {
+        key: 'refresh',
+        value: function refresh() {
+            $('.Calculator__output').html(this.output);
+        }
+    }]);
+
+    return Calculator;
+}();
+
+alert('test');
+
+var calculator = new Calculator();
+
+// Click event for each of the elements
+$('.Calculator__row>span').click(function () {
+    var clicked = $(this).data('value');
+    calculator.input(clicked);
+});
+
+$(document).keypress(function (event) {
+    console.log('press');
+    calculator.input(String.fromCharCode(event.which));
+});
+
+},{}],25:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -25873,12 +25961,13 @@ window.$ = window.jQuery = require('jquery');
 var moment = require('moment');
 
 var bootstrap = require('bootstrap');
+require('./jquery/app.js');
 
 new _vue2.default({
   el: 'body',
   components: { App: _App2.default }
 });
 
-},{"./App.vue":20,"bootstrap":1,"jquery":14,"moment":15,"vue":18}]},{},[23]);
+},{"./App.vue":20,"./jquery/app.js":23,"bootstrap":1,"jquery":14,"moment":15,"vue":18}]},{},[25]);
 
 //# sourceMappingURL=main.js.map

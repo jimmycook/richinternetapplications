@@ -1,5 +1,5 @@
-<template>
-    <div class="col-sm-3  " v-for="movie in movies">
+<template>    
+    <div class="col-sm-3" v-for="movie in movies">
         <div class="panel">
             <div class="panel-body">
                 <h3>{{ movie.name }}</h3>
@@ -12,7 +12,7 @@
 
 <script>
 export default { 
-    data: () => {
+    data: function () {
         return {
             movies: ''
         }
@@ -20,14 +20,14 @@ export default {
     methods: {
         getMovies: function () {
             var vm = this
-            $.get('/api/movies', function (data){
-                vm.movies = data
-            })
+            $.get('/api/movies', function (data) {
+                vm.movies = data;            
+            });
+        },
 
-        }
     },
     created: function () {
-        this.getMovies()
+        this.getMovies();
     }
 }
 </script>

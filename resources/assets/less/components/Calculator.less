@@ -1,0 +1,72 @@
+// Colours
+@main-background: #493D7E;
+@button-background: #eee;
+@button-alt: #F08C33;
+@button-text: #444;
+
+// Sizes
+@button-side: 75px;
+@border-width: 1px;
+
+// Container
+.Calculator {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    width: 300px;
+    font-size: 30px;
+    font-weight: lighter !important;
+    clear: none;
+    border-top: @border-width solid black;
+}
+
+// Row utility class
+.Calculator__row {
+    border-right: @border-width solid black;
+    border-bottom: @border-width solid black;
+
+    display: flex;
+    width: 100%;
+    clear: both;
+}
+
+// Basic Element Mixin
+.Calculator__elem {
+    user-select: none;
+    display: flex;
+    height: @button-side;
+    align-items: center;
+    color: @button-text;
+    border-left: @border-width solid black;
+    background-color: @button-background;
+    clear: none;
+    margin: 0;
+}
+
+// Specific Element Classes
+.Calculator__button {
+    .Calculator__elem;
+    justify-content: center;
+    width: @button-side;
+}
+
+.Calculator__double {
+    .Calculator__button;
+    width: calc(@button-side * 2);
+}
+
+.Calculator__triple {
+    .Calculator__button;
+    width: calc(@button-side * 3);
+}
+
+.Calculator__end {
+    .Calculator__button;
+    background-color: @button-alt;
+}
+
+.Calculator__output {
+    .Calculator__elem;
+    width: calc(@button-side * 4);
+    justify-content: flex-end;
+    padding-right: 28px;
+}
+
