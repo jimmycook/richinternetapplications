@@ -7,7 +7,10 @@
                 <span class="Calculator__output">0</span>
             </div>
             <div class="Calculator__row">
-                <span class="Calculator__triple" data-value="C">C</span>
+                <span class="Calculator__button" data-value="C">C</span>
+                <span class="Calculator__smallText" data-value="$">£ to $</span>
+                <span class="Calculator__smallText" data-value="£">$ to £</span>
+
                 <span class="Calculator__end" data-value="/">÷</span>
             </div>
             <div class="Calculator__row">

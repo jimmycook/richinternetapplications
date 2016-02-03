@@ -15811,6 +15811,174 @@ return jQuery;
 
 }));
 },{}],16:[function(require,module,exports){
+/*!
+ * money.js / fx() v0.2
+ * Copyright 2014 Open Exchange Rates
+ *
+ * JavaScript library for realtime currency conversion and exchange rate calculation.
+ *
+ * Freely distributable under the MIT license.
+ * Portions of money.js are inspired by or borrowed from underscore.js
+ *
+ * For details, examples and documentation:
+ * http://openexchangerates.github.io/money.js/
+ */
+(function(root, undefined) {
+
+	// Create a safe reference to the money.js object for use below.
+	var fx = function(obj) {
+		return new fxWrapper(obj);
+	};
+
+	// Current version.
+	fx.version = '0.2';
+
+
+	/* --- Setup --- */
+
+	// fxSetup can be defined before loading money.js, to set the exchange rates and the base
+	// (and default from/to) currencies - or the rates can be loaded in later if needed.
+	var fxSetup = root.fxSetup || {
+		rates : {},
+		base : ""
+	};
+
+	// Object containing exchange rates relative to the fx.base currency, eg { "GBP" : "0.64" }
+	fx.rates = fxSetup.rates;
+
+	// Default exchange rate base currency (eg "USD"), which all the exchange rates are relative to
+	fx.base = fxSetup.base;
+
+	// Default from / to currencies for conversion via fx.convert():
+	fx.settings = {
+		from : fxSetup.from || fx.base,
+		to : fxSetup.to || fx.base
+	};
+
+
+	/* --- Conversion --- */
+
+	// The base function of the library: converts a value from one currency to another
+	var convert = fx.convert = function(val, opts) {
+		// Convert arrays recursively
+		if (typeof val === 'object' && val.length) {
+			for (var i = 0; i< val.length; i++ ) {
+				val[i] = convert(val[i], opts);
+			}
+			return val;
+		}
+
+		// Make sure we gots some opts
+		opts = opts || {};
+
+		// We need to know the `from` and `to` currencies
+		if( !opts.from ) opts.from = fx.settings.from;
+		if( !opts.to ) opts.to = fx.settings.to;
+
+		// Multiple the value by the exchange rate
+		return val * getRate( opts.to, opts.from );
+	};
+
+	// Returns the exchange rate to `target` currency from `base` currency
+	var getRate = function(to, from) {
+		// Save bytes in minified version
+		var rates = fx.rates;
+
+		// Make sure the base rate is in the rates object:
+		rates[fx.base] = 1;
+
+		// Throw an error if either rate isn't in the rates array
+		if ( !rates[to] || !rates[from] ) throw "fx error";
+
+		// If `from` currency === fx.base, return the basic exchange rate for the `to` currency
+		if ( from === fx.base ) {
+			return rates[to];
+		}
+
+		// If `to` currency === fx.base, return the basic inverse rate of the `from` currency
+		if ( to === fx.base ) {
+			return 1 / rates[from];
+		}
+
+		// Otherwise, return the `to` rate multipled by the inverse of the `from` rate to get the
+		// relative exchange rate between the two currencies
+		return rates[to] * (1 / rates[from]);
+	};
+
+
+	/* --- OOP wrapper and chaining --- */
+
+	// If fx(val) is called as a function, it returns a wrapped object that can be used OO-style
+	var fxWrapper = function(val) {
+		// Experimental: parse strings to pull out currency code and value:
+		if ( typeof	val === "string" ) {
+			this._v = parseFloat(val.replace(/[^0-9-.]/g, ""));
+			this._fx = val.replace(/([^A-Za-z])/g, "");
+		} else {
+			this._v = val;
+		}
+	};
+
+	// Expose `wrapper.prototype` as `fx.prototype`
+	var fxProto = fx.prototype = fxWrapper.prototype;
+
+	// fx(val).convert(opts) does the same thing as fx.convert(val, opts)
+	fxProto.convert = function() {
+		var args = Array.prototype.slice.call(arguments);
+		args.unshift(this._v);
+		return convert.apply(fx, args);
+	};
+
+	// fx(val).from(currency) returns a wrapped `fx` where the value has been converted from
+	// `currency` to the `fx.base` currency. Should be followed by `.to(otherCurrency)`
+	fxProto.from = function(currency) {
+		var wrapped = fx(convert(this._v, {from: currency, to: fx.base}));
+		wrapped._fx = fx.base;
+		return wrapped;
+	};
+
+	// fx(val).to(currency) returns the value, converted from `fx.base` to `currency`
+	fxProto.to = function(currency) {
+		return convert(this._v, {from: this._fx ? this._fx : fx.settings.from, to: currency});
+	};
+
+
+	/* --- Module Definition --- */
+
+	// Export the fx object for CommonJS. If being loaded as an AMD module, define it as such.
+	// Otherwise, just add `fx` to the global object
+	if (typeof exports !== 'undefined') {
+		if (typeof module !== 'undefined' && module.exports) {
+			exports = module.exports = fx;
+		}
+		exports.fx = fx;
+	} else if (typeof define === 'function' && define.amd) {
+		// Return the library as an AMD module:
+		define([], function() {
+			return fx;
+		});
+	} else {
+		// Use fx.noConflict to restore `fx` back to its original value before money.js loaded.
+		// Returns a reference to the library's `fx` object; e.g. `var money = fx.noConflict();`
+		fx.noConflict = (function(previousFx) {
+			return function() {
+				// Reset the value of the root's `fx` variable:
+				root.fx = previousFx;
+				// Delete the noConflict function:
+				fx.noConflict = undefined;
+				// Return reference to the library to re-assign it:
+				return fx;
+			};
+		})(root.fx);
+
+		// Declare `fx` on the root (global/window) object:
+		root['fx'] = fx;
+	}
+
+	// Root will be `window` in browser or `global` on the server:
+}(this));
+
+},{}],17:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -15903,7 +16071,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -16201,7 +16369,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v1.0.15
@@ -25728,7 +25896,7 @@ if (process.env.NODE_ENV !== 'production' && inBrowser) {
 
 module.exports = Vue;
 }).call(this,require('_process'))
-},{"_process":16}],19:[function(require,module,exports){
+},{"_process":17}],20:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -25748,7 +25916,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\nbody {\n    font-family: Helvetica, sans-serif;\n}\n")
 'use strict';
 
@@ -25789,7 +25957,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./components/Hello.vue":21,"./components/MoviePicker.vue":22,"vue":18,"vue-hot-reload-api":17,"vueify-insert-css":19}],21:[function(require,module,exports){
+},{"./components/Hello.vue":22,"./components/MoviePicker.vue":23,"vue":19,"vue-hot-reload-api":18,"vueify-insert-css":20}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25819,7 +25987,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":18,"vue-hot-reload-api":17}],22:[function(require,module,exports){
+},{"vue":19,"vue-hot-reload-api":18}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25857,94 +26025,226 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":18,"vue-hot-reload-api":17}],23:[function(require,module,exports){
-'use strict';
-
-require('./calculator.js');
-
-},{"./calculator.js":24}],24:[function(require,module,exports){
+},{"vue":19,"vue-hot-reload-api":18}],24:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/**
- * Calculator class
- *
- * requires jQuery to be available
- */
+// Load class dependencies here, these need to
+// be installed via npm
+require('jquery');
+var fx = require('money');
 
 var Calculator = function () {
-    function Calculator() {
+    function Calculator(element) {
+        var debug = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
         _classCallCheck(this, Calculator);
 
-        this.output = 0;
-        this.stored;
-        this.operator;
-        this.refresh();
+        this.debug = debug;
+        this.outputElement = element;
+        this.resetState();
+        this.getExchangeRates();
     }
+
+    // Input handler
+    //
+    // Value is the current input to the calculator
 
     _createClass(Calculator, [{
         key: 'input',
         value: function input(value) {
-            if (value >= 0 && value <= 9) {
-                this.numberPressed(value);
-            } else {
-                if (value == 'C' || 'c') this.clear();else if (value == '+') this.operator(value);else if (value == '/') this.operator(value);else if (value == '-') this.operator(value);else if (value == '*') this.operator(value);else if (value == '=') this.equals();
-            }
+            if (value >= 0 && value <= 9) this.digitPressed(value);else if (value == 'C' || value == 'c') this.resetState();else if (value == '+') this.setOperator(value);else if (value == '-') this.setOperator(value);else if (value == '/') this.setOperator(value);else if (value == '*') this.setOperator(value);else if (value == '$') this.convert(this.output, "GBP", "USD");else if (value == '£') this.convert(this.output, "USD", "GBP");else if (value == '=') this.run();else if (value == '.') this.dotPressed();
             this.refresh();
         }
+
+        // Actions for a dot being pressed
+
     }, {
-        key: 'numberPressed',
-        value: function numberPressed(number) {
-            if (this.output == 0) {
+        key: 'dotPressed',
+        value: function dotPressed() {
+            this.editing = true;
+            if (this.output % 1 == 0) {
+                this.addCharacter('.');
+            }
+        }
+
+        // Actions for a digit being pressed
+
+    }, {
+        key: 'digitPressed',
+        value: function digitPressed(character) {
+            if (!this.editing) {
                 this.editing = true;
-                this.output = number;
-            } else if (this.editing && this.output <= 100000000000000) {
-                this.output = this.output * 10 + parseInt(number);
+                this.output = character;
+            } else if (this.editing) {
+                this.addCharacter(character);
             }
         }
+
+        // Add a character to the output string
+
     }, {
-        key: 'operator',
-        value: function operator(value) {
-            this.stored = this.output;
-            this.output = 0;
-            this.operator = value;
+        key: 'addCharacter',
+        value: function addCharacter(character) {
+            this.output = String(this.output);
+            this.output = this.output + character;
         }
+
+        // Set the operator object up
+
     }, {
-        key: 'clear',
-        value: function clear() {
+        key: 'setOperator',
+        value: function setOperator(operator) {
+            // Run the current operation if you need to    
+            if (this.operation.operator != "" && this.output != 0 && !this.ran) {
+                this.run();
+            } else {
+                // Store and ready the output for new input
+                this.stored = this.output;
+                this.output = 0;
+                this.editing = false;
+            }
+
+            // Create the new operator object
+            this.operation = {
+                operator: operator,
+                value: ""
+            };
+
+            // The new operation hasn't been run so set it to that
+            this.ran = false;
+        }
+
+        // Run the current operation
+
+    }, {
+        key: 'run',
+        value: function run() {
+            // If the user has been editing and there's an operator
+            if (this.editing && this.operation.operator != "") {
+                // Set the value and stop editing
+                this.operation.value = this.output;
+                this.editing = false;
+            }
+            // Sanity check the operation
+            if (this.operation.operator != "" && this.operation.value != "") {
+                // Execute the operation and output it
+                this.executeOperation();
+            }
+            this.ran = true;
+        }
+
+        // Execute an operation on the current stored number
+        //
+        // Accepts an operation object with the fields operator and value
+
+    }, {
+        key: 'executeOperation',
+        value: function executeOperation() {
+            var operation = arguments.length <= 0 || arguments[0] === undefined ? this.operation : arguments[0];
+
+            var firstNum = String(this.stored);
+            var operator = String(operation.operator);
+            var secondNum = String(operation.value);
+            var evalString = firstNum + operator + secondNum;
+            this.stored = eval(firstNum + operator + secondNum);
+            this.output = this.stored;
+        }
+
+        // Reset the calculator state
+
+    }, {
+        key: 'resetState',
+        value: function resetState() {
             this.output = 0;
-            this.stored = 0;
+            this.stored = "";
+            this.operation = {
+                value: "",
+                operator: ""
+            };
+            this.ran = false;
+            this.editing = false;
             this.refresh();
         }
+
+        // Currency conversion using money.js
+
+    }, {
+        key: 'convert',
+        value: function convert(value, from, to) {
+            // Run the convertion
+            var converted = fx(value).from(from).to(to);
+            this.stored = converted.toFixed(2);
+            this.output = this.stored;
+            // clear the operation
+            this.operation = {
+                value: "",
+                operator: ""
+            };
+            // cleanup attributes
+            this.ran = false;
+            this.editing = false;
+        }
+
+        // Setup exchange rates from the money library using ajax
+
+    }, {
+        key: 'getExchangeRates',
+        value: function getExchangeRates() {
+            var apiUrl = "http://api.fixer.io/latest?base=USD&symbols=GBP";
+            // Load the rates into the money.js library
+            $.getJSON(apiUrl, function (data) {
+                fx.rates = data.rates;
+                fx.base = data.base;
+            });
+        }
+
+        // Output the current output variable
+
     }, {
         key: 'refresh',
         value: function refresh() {
-            $('.Calculator__output').html(this.output);
+            $(this.outputElement).html(this.output);
+            if (this.debug) console.log(this);
         }
     }]);
 
     return Calculator;
 }();
 
-alert('test');
+exports.Calculator = Calculator;
 
-var calculator = new Calculator();
+},{"jquery":14,"money":16}],25:[function(require,module,exports){
+'use strict';
 
+var _Calculator = require('./Calculator');
+
+// Import conversion library
+var fx = require('money');
+
+// Create the calculator object
+// Import the calculator
+var calculator = new _Calculator.Calculator($('.Calculator__output'));
+console.log;
 // Click event for each of the elements
 $('.Calculator__row>span').click(function () {
     var clicked = $(this).data('value');
     calculator.input(clicked);
 });
 
+// Keypress events are sent to the calculato
 $(document).keypress(function (event) {
-    console.log('press');
     calculator.input(String.fromCharCode(event.which));
 });
 
-},{}],25:[function(require,module,exports){
+},{"./Calculator":24,"money":16}],26:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -25968,6 +26268,6 @@ new _vue2.default({
   components: { App: _App2.default }
 });
 
-},{"./App.vue":20,"./jquery/app.js":23,"bootstrap":1,"jquery":14,"moment":15,"vue":18}]},{},[25]);
+},{"./App.vue":21,"./jquery/app.js":25,"bootstrap":1,"jquery":14,"moment":15,"vue":19}]},{},[26]);
 
 //# sourceMappingURL=main.js.map

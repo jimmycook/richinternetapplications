@@ -6665,11 +6665,11 @@ body {
   font-size: 30px;
   font-weight: lighter !important;
   clear: none;
-  border-top: 1px solid black;
+  border-top: 1px solid #000;
 }
 .Calculator__row {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -6688,8 +6688,8 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  color: #222;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6706,8 +6706,8 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  color: #222;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6728,8 +6728,8 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  color: #222;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6751,8 +6751,8 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  color: #222;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6761,6 +6761,29 @@ body {
   justify-content: center;
   width: 75px;
   width: calc(225px);
+}
+.Calculator__smallText {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 75px;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #222;
+  border-left: 1px solid #000;
+  background-color: #eee;
+  clear: none;
+  margin: 0;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 75px;
+  font-size: 24px;
 }
 .Calculator__end {
   -webkit-user-select: none;
@@ -6774,8 +6797,7 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6784,6 +6806,7 @@ body {
   justify-content: center;
   width: 75px;
   background-color: #F08C33;
+  color: #222;
 }
 .Calculator__output {
   -webkit-user-select: none;
@@ -6797,8 +6820,8 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #444;
-  border-left: 1px solid black;
+  color: #222;
+  border-left: 1px solid #000;
   background-color: #eee;
   clear: none;
   margin: 0;
@@ -6806,6 +6829,8 @@ body {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  background-color: #222;
+  color: #eee;
   padding-right: 28px;
 }
 

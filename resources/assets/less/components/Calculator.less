@@ -1,12 +1,16 @@
 // Colours
-@main-background: #493D7E;
-@button-background: #eee;
-@button-alt: #F08C33;
-@button-text: #444;
+@calc-main-background: #493D7E;
+@calc-button-background: #eee;
+@calc-button-text: #222;
+@calc-button-alt: #F08C33;
+@calc-button-alt-text: #222;
+@calc-output-background: #222;
+@calc-output-text: #eee;
+@calc-border-colour: #000;
 
 // Sizes
-@button-side: 75px;
-@border-width: 1px;
+@calc-button-side: 75px;
+@calc-border-width: 1px;
 
 // Container
 .Calculator {
@@ -15,28 +19,28 @@
     font-size: 30px;
     font-weight: lighter !important;
     clear: none;
-    border-top: @border-width solid black;
+    border-top: @calc-border-width solid @calc-border-colour;
 }
 
 // Row utility class
 .Calculator__row {
-    border-right: @border-width solid black;
-    border-bottom: @border-width solid black;
+    border-right: @calc-border-width solid @calc-border-colour;
+    border-bottom: @calc-border-width solid @calc-border-colour;
 
     display: flex;
     width: 100%;
     clear: both;
 }
 
-// Basic Element Mixin
+// Basic Calculator Element
 .Calculator__elem {
     user-select: none;
     display: flex;
-    height: @button-side;
+    height: @calc-button-side;
     align-items: center;
-    color: @button-text;
-    border-left: @border-width solid black;
-    background-color: @button-background;
+    color: @calc-button-text;
+    border-left: @calc-border-width solid @calc-border-colour;
+    background-color: @calc-button-background;
     clear: none;
     margin: 0;
 }
@@ -45,28 +49,35 @@
 .Calculator__button {
     .Calculator__elem;
     justify-content: center;
-    width: @button-side;
+    width: @calc-button-side;
 }
 
 .Calculator__double {
     .Calculator__button;
-    width: calc(@button-side * 2);
+    width: calc(@calc-button-side * 2);
 }
 
 .Calculator__triple {
     .Calculator__button;
-    width: calc(@button-side * 3);
+    width: calc(@calc-button-side * 3);
+}
+
+.Calculator__smallText {
+    .Calculator__button;
+    font-size: 24px;
 }
 
 .Calculator__end {
     .Calculator__button;
-    background-color: @button-alt;
+    background-color: @calc-button-alt;
+    color: @calc-button-alt-text;
 }
 
 .Calculator__output {
     .Calculator__elem;
-    width: calc(@button-side * 4);
+    width: calc(@calc-button-side * 4);
     justify-content: flex-end;
+    background-color: @calc-output-background;
+    color: @calc-output-text;
     padding-right: 28px;
 }
-
