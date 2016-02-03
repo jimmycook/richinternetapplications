@@ -26226,14 +26226,11 @@ exports.Calculator = Calculator;
 
 var _Calculator = require('./Calculator');
 
-// Import conversion library
-var fx = require('money');
-
 // Create the calculator object
-// Import the calculator
 var calculator = new _Calculator.Calculator($('.Calculator__output'));
-console.log;
-// Click event for each of the elements
+
+// event for each of the elements
+// Import the calculator
 $('.Calculator__row>span').click(function () {
     var clicked = $(this).data('value');
     calculator.input(clicked);
@@ -26244,7 +26241,7 @@ $(document).keypress(function (event) {
     calculator.input(String.fromCharCode(event.which));
 });
 
-},{"./Calculator":24,"money":16}],26:[function(require,module,exports){
+},{"./Calculator":24}],26:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
