@@ -29,7 +29,6 @@ class ApiController extends Controller
 
     public function getMovie(Request $request, $id)
     {
-        // dd($id);
         return Movie::findOrFail($id)->get()->first();
     }
 

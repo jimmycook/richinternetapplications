@@ -1,3 +1,11 @@
+// -------------------------------|
+// Carousel
+// -------------------------------|
+// $("#carousel").carousel();
+console.log($().carousel);
+// -------------------------------|
+// Calculator stuff
+// -------------------------------|
 // Import the calculator 
 import { Calculator } from './Calculator';
 

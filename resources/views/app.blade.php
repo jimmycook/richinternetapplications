@@ -11,6 +11,7 @@
          
     </head>
     <body>        
+        @include('navbar')
         @yield('content')
 
         <script type="text/javascript" src="/js/main.js"></script>

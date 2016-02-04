@@ -26036,12 +26036,25 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * ES6 Calculator class
+ *
+ * @author  Jimmy Cook
+ */
+
 // Load class dependencies here, these need to
 // be installed via npm
 require('jquery');
 var fx = require('money');
 
 var Calculator = function () {
+
+    // Accepts an element (could also just be a selector) for the output of the
+    // calculator
+    //
+    // and also a debug field, which is used to log the object to the console
+    // on this.refresh() when set to true
+
     function Calculator(element) {
         var debug = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
@@ -26060,7 +26073,7 @@ var Calculator = function () {
     _createClass(Calculator, [{
         key: 'input',
         value: function input(value) {
-            if (value >= 0 && value <= 9) this.digitPressed(value);else if (value == 'C' || value == 'c') this.resetState();else if (value == '+') this.setOperator(value);else if (value == '-') this.setOperator(value);else if (value == '/') this.setOperator(value);else if (value == '*') this.setOperator(value);else if (value == '$') this.convert(this.output, "GBP", "USD");else if (value == '£') this.convert(this.output, "USD", "GBP");else if (value == '=') this.run();else if (value == '.') this.dotPressed();
+            if (value >= 0 && value <= 9) this.digitPressed(value);else if (value == 'C' || value == 'c') this.resetState();else if (value == '+') this.setOperator(value);else if (value == '-') this.setOperator(value);else if (value == '/') this.setOperator(value);else if (value == '*') this.setOperator(value);else if (value == '$') this.convert(this.output, "GBP", "USD");else if (value == '€') this.convert(this.output, "GBP", "EUR");else if (value == '=') this.run();else if (value == '.') this.dotPressed();
             this.refresh();
         }
 
@@ -26198,7 +26211,7 @@ var Calculator = function () {
     }, {
         key: 'getExchangeRates',
         value: function getExchangeRates() {
-            var apiUrl = "http://api.fixer.io/latest?base=USD&symbols=GBP";
+            var apiUrl = "https://api.fixer.io/latest?base=GBP";
             // Load the rates into the money.js library
             $.getJSON(apiUrl, function (data) {
                 fx.rates = data.rates;
@@ -26226,11 +26239,20 @@ exports.Calculator = Calculator;
 
 var _Calculator = require('./Calculator');
 
+// -------------------------------|
+// Carousel
+// -------------------------------|
+// $("#carousel").carousel();
+console.log($().carousel);
+// -------------------------------|
+// Calculator stuff
+// -------------------------------|
+// Import the calculator
+
 // Create the calculator object
 var calculator = new _Calculator.Calculator($('.Calculator__output'));
 
 // event for each of the elements
-// Import the calculator
 $('.Calculator__row>span').click(function () {
     var clicked = $(this).data('value');
     calculator.input(clicked);
@@ -26254,12 +26276,17 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Importing libararies
 window.$ = window.jQuery = require('jquery');
 var moment = require('moment');
 
 var bootstrap = require('bootstrap');
+
+// Importing my own code
+
 require('./jquery/app.js');
 
+// Start the vue instance
 new _vue2.default({
   el: 'body',
   components: { App: _App2.default }

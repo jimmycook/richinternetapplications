@@ -1,3 +1,9 @@
+/**
+ * ES6 Calculator class
+ *
+ * @author  Jimmy Cook
+ */
+
 // Load class dependencies here, these need to 
 // be installed via npm
 require('jquery');
@@ -5,6 +11,11 @@ var fx = require('money');
 
 class Calculator {
 
+    // Accepts an element (could also just be a selector) for the output of the 
+    // calculator
+    // 
+    // and also a debug field, which is used to log the object to the console
+    // on this.refresh() when set to true
     constructor(element, debug = false) {
         this.debug = debug;
         this.outputElement = element;
@@ -23,7 +34,7 @@ class Calculator {
         else if (value == '/') this.setOperator(value);
         else if (value == '*') this.setOperator(value);
         else if (value == '$') this.convert(this.output, "GBP", "USD");
-        else if (value == '£') this.convert(this.output, "USD", "GBP");
+        else if (value == '€') this.convert(this.output, "GBP", "EUR");
         else if (value == '=') this.run();
         else if (value == '.') this.dotPressed();
         this.refresh();
@@ -136,7 +147,7 @@ class Calculator {
 
     // Setup exchange rates from the money library using ajax
     getExchangeRates() {
-        let apiUrl = "http://api.fixer.io/latest?base=USD&symbols=GBP";
+        let apiUrl = "https://api.fixer.io/latest?base=GBP";
         // Load the rates into the money.js library
         $.getJSON(apiUrl, function(data) {
             fx.rates = data.rates;

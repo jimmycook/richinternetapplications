@@ -18,6 +18,8 @@ class CreateMoviesTable extends Migration
             $table->string('director')->nullable();
             $table->string('genre')->nullable();
             $table->string('image_url')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('admission_price')->nullable();
             $table->integer('ranking');
             $table->string('year')->nullable();
             $table->timestamps();
