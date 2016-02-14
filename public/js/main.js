@@ -26232,6 +26232,8 @@ var Calculator = function () {
     return Calculator;
 }();
 
+// Export the calculator
+
 exports.Calculator = Calculator;
 
 },{"jquery":14,"money":16}],25:[function(require,module,exports){

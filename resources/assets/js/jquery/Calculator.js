@@ -163,4 +163,5 @@ class Calculator {
     }
 }
 
+// Export the calculator
 export { Calculator };
