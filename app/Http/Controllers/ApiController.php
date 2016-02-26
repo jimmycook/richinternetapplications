@@ -27,6 +27,12 @@ class ApiController extends Controller
         return Movie::get();
     }
 
+    public function getMobileMovieInfo(Request $request, $id)
+    {
+        $movie = Movie::where('id', '=', $id)->get()->first();        
+        return view('coursework.week_four.page', ['movie' => $movie]);
+    }
+
     public function getMovie(Request $request, $id)
     {
         return Movie::findOrFail($id)->get()->first();

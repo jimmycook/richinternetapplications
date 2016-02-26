@@ -2,7 +2,7 @@
 // Carousel
 // -------------------------------|
 // $("#carousel").carousel();
-console.log($().carousel);
+
 // -------------------------------|
 // Calculator stuff
 // -------------------------------|
@@ -18,7 +18,7 @@ $('.Calculator__row>span').click(function () {
     calculator.input(clicked);
 });
 
-// Keypress events are sent to the calculato
+// Keypress events are sent to the calculator
 $(document).keypress(function(event){
     calculator.input(String.fromCharCode(event.which));
 });

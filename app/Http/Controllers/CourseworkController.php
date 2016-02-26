@@ -26,6 +26,34 @@ class CourseworkController extends Controller
         return view('coursework.week_two.index', ['movies' => $movies]);
     }
 
+    public function weekThree()
+    {
+        $movies = Movie::orderBy('ranking', 'asc')->get();
+        // dd($movies);
+        return view('coursework.week_three.index', ['movies' => $movies]);
+    }
+
+    public function weekFour()
+    {
+        $movies = Movie::orderBy('ranking', 'asc')->get();
+        // dd($movies);
+        return view('coursework.week_four.index', ['movies' => $movies]);
+    }
+
+    public function weekFive()
+    {
+        $movies = Movie::orderBy('ranking', 'asc')->get();
+        // dd($movies);
+        return view('coursework.week_five.index', ['movies' => $movies]);
+    }
+
+    public function weekSix()
+    {
+        $movies = Movie::orderBy('ranking', 'asc')->get();
+        // dd($movies);
+        return view('coursework.week_six.index', ['movies' => $movies]);
+    }
+
     public function singlePageApp()
     {
         return view('spa');

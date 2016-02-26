@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "firebase": "^2.4.1",
     "jquery": "^2.2.0",
     "laravel-elixir": "^4.2.0",
     "laravel-elixir-vueify": "^1.0.2",
