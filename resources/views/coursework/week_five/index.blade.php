@@ -9,7 +9,7 @@
         </div>
         <div class="panel" v-show="movies.length" >
           <div class="panel-heading">
-            <h2>Review a movie</h2>
+            <h2>Rate a movie</h2>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-3">
                   <select  class="form-control" v-model="newReview.rating">
-                      <option value="0"selected disabled>Please select a rating for the film</option>
+                      <option value="0"selected disabled>Please select a rating</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
