@@ -66,7 +66,7 @@ var app = new Vue({
   // methods
   methods: {
     submitReview: function () {
-      if(this.newReview.name != '' && this.newReview.rating && this.newReview.movieID)
+      if(this.newReview.name != '' && this.newReview.rating && this.newReview.movieID != 'placeholder')
       Reviews.push(this.newReview)
       this.newReview.name = ''
       this.newReview.rating = '0'

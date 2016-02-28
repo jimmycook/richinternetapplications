@@ -26764,7 +26764,7 @@ var app = new _vue2.default({
   // methods
   methods: {
     submitReview: function submitReview() {
-      if (this.newReview.name != '' && this.newReview.rating && this.newReview.movieID) Reviews.push(this.newReview);
+      if (this.newReview.name != '' && this.newReview.rating && this.newReview.movieID != 'placeholder') Reviews.push(this.newReview);
       this.newReview.name = '';
       this.newReview.rating = '0';
       this.newReview.movieID = '';
