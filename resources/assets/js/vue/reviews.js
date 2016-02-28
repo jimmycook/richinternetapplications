@@ -10,7 +10,7 @@ var Movies = new Firebase(baseURL + 'movies')
 Movies.on('child_added', function (snapshot) {
   var item = snapshot.val()
   item.id = snapshot.key()
-  // Making sure we can add reviews  
+  // Making sure we can add reviews
   if(!item.reviews)
     item.reviews = []
   app.movies.push(item)
@@ -26,6 +26,25 @@ Movies.on('child_removed', function (snapshot) {
   })
 })
 
+var Reviews = new Firebase(baseURL + 'reviews')
+
+Reviews.on('child_added', function (snapshot) {
+  var item = snapshot.val()
+
+  app.reviews.push(item)
+})
+
+Reviews.on('child_removed', function (snapshot) {
+  var id = snapshot.key()
+  app.reviews.some(function (review) {
+    if (review.id === id) {
+      app.reviews.$remove(review)
+      return true
+    }
+  })
+})
+
+
 // Vuejs Code
 var app = new Vue({
 
@@ -35,51 +54,48 @@ var app = new Vue({
   // initial data
   data: {
     movies: [],
+    reviews: [],
     newReview: {
       name: '',
-      rating: ''
-    },
-    reviewing: null
-  },
+      rating: '',
+      movieID: ''
+    }
+},
 
   // methods
   methods: {
-    addReview: function (movie) {      
-      Movies.child(movie.id).child('reviews').push(this.newReview)
+    submitReview: function () {
+      console.log('test')
+      if(this.newReview.name != '' && this.newReview.rating && this.newReview.movieID)
+      Reviews.push(this.newReview)
       this.newReview.name = ''
       this.newReview.rating = ''
-    },
-    toggleReviewing: function (movie) {
-      this.newReview.name = ''
-      this.newReview.rating = ''
-      if(this.reviewing == movie.id)
-        this.reviewing = null
-      else
-        this.reviewing = movie.id      
-    },
-    cancelReview: function (movie) {
-      this.newReview.name = ''
-      this.newReview.rating = ''
-      movie.reviewing = false
-    },
-    checkReviewing: function (movie) {     
-      if(movie.id == this.reviewing)
-        return true
-      else 
-        return false
+      this.newReview.movieID = ''
     },
     averageReviewScore: function (movie) {
-      var reviews = this.movies[movie.id].reviews
-      var count = 0
-      var total = 0
-      for(var key in reviews){
-        var rating = reviews[key].rating 
-        if(rating != null && rating != "") {
-          count ++
-          total += rating  
+      let total = 0
+      let count = 0
+
+      this.reviews.some(function (review){
+
+        if(review.movieID == movie.id) {
+          total += parseFloat(review.rating)
+          count++
         }
+
+      })
+
+      if(total){
+        let average = total / count
+
+        movie.ranking = average
+        console.log(movie.ranking)
+        return average
       }
-      return total / count
+      else {
+        movie.ranking = 0
+        return 0
+      }
     }
   }
 })

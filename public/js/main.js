@@ -26710,7 +26710,7 @@ var Movies = new _firebase2.default(baseURL + 'movies');
 Movies.on('child_added', function (snapshot) {
   var item = snapshot.val();
   item.id = snapshot.key();
-  // Making sure we can add reviews 
+  // Making sure we can add reviews
   if (!item.reviews) item.reviews = [];
   app.movies.push(item);
 });
@@ -26725,6 +26725,24 @@ Movies.on('child_removed', function (snapshot) {
   });
 });
 
+var Reviews = new _firebase2.default(baseURL + 'reviews');
+
+Reviews.on('child_added', function (snapshot) {
+  var item = snapshot.val();
+
+  app.reviews.push(item);
+});
+
+Reviews.on('child_removed', function (snapshot) {
+  var id = snapshot.key();
+  app.reviews.some(function (review) {
+    if (review.id === id) {
+      app.reviews.$remove(review);
+      return true;
+    }
+  });
+});
+
 // Vuejs Code
 var app = new _vue2.default({
 
@@ -26734,45 +26752,45 @@ var app = new _vue2.default({
   // initial data
   data: {
     movies: [],
+    reviews: [],
     newReview: {
       name: '',
-      rating: ''
-    },
-    reviewing: null
+      rating: '',
+      movieID: ''
+    }
   },
 
   // methods
   methods: {
-    addReview: function addReview(movie) {
-      Movies.child(movie.id).child('reviews').push(this.newReview);
+    submitReview: function submitReview() {
+      console.log('test');
+      if (this.newReview.name != '' && this.newReview.rating && this.newReview.movieID) Reviews.push(this.newReview);
       this.newReview.name = '';
       this.newReview.rating = '';
-    },
-    toggleReviewing: function toggleReviewing(movie) {
-      this.newReview.name = '';
-      this.newReview.rating = '';
-      if (this.reviewing == movie.id) this.reviewing = null;else this.reviewing = movie.id;
-    },
-    cancelReview: function cancelReview(movie) {
-      this.newReview.name = '';
-      this.newReview.rating = '';
-      movie.reviewing = false;
-    },
-    checkReviewing: function checkReviewing(movie) {
-      if (movie.id == this.reviewing) return true;else return false;
+      this.newReview.movieID = '';
     },
     averageReviewScore: function averageReviewScore(movie) {
-      var reviews = this.movies[movie.id].reviews;
-      var count = 0;
       var total = 0;
-      for (var key in reviews) {
-        var rating = reviews[key].rating;
-        if (rating != null && rating != "") {
+      var count = 0;
+
+      this.reviews.some(function (review) {
+
+        if (review.movieID == movie.id) {
+          total += parseFloat(review.rating);
           count++;
-          total += rating;
         }
+      });
+
+      if (total) {
+        var average = total / count;
+
+        movie.ranking = average;
+        console.log(movie.ranking);
+        return average;
+      } else {
+        movie.ranking = 0;
+        return 0;
       }
-      return total / count;
     }
   }
 });
