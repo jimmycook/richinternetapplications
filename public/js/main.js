@@ -26753,6 +26753,7 @@ var app = new _vue2.default({
   data: {
     movies: [],
     reviews: [],
+    show: '',
     newReview: {
       name: '',
       rating: '',
@@ -26763,11 +26764,24 @@ var app = new _vue2.default({
   // methods
   methods: {
     submitReview: function submitReview() {
-      console.log('test');
       if (this.newReview.name != '' && this.newReview.rating && this.newReview.movieID) Reviews.push(this.newReview);
       this.newReview.name = '';
-      this.newReview.rating = '';
+      this.newReview.rating = '0';
       this.newReview.movieID = '';
+    },
+    showRatings: function showRatings(movie) {
+      this.show = movie.id;
+    },
+    noRatings: function noRatings(movie) {
+      var count = 0;
+      this.reviews.some(function (review) {
+
+        if (review.movieID == movie.id) {
+          count++;
+        }
+      });
+      if (!count) return true;
+      return false;
     },
     averageReviewScore: function averageReviewScore(movie) {
       var total = 0;
@@ -26785,7 +26799,6 @@ var app = new _vue2.default({
         var average = total / count;
 
         movie.ranking = average;
-        console.log(movie.ranking);
         return average;
       } else {
         movie.ranking = 0;

@@ -6393,7 +6393,9 @@ button.close {
 .modal-header:before,
 .modal-header:after,
 .modal-footer:before,
-.modal-footer:after {
+.modal-footer:after,
+.ratings-panel:before,
+.ratings-panel:after {
   content: " ";
   display: table;
 }
@@ -6412,7 +6414,8 @@ button.close {
 .pager:after,
 .panel-body:after,
 .modal-header:after,
-.modal-footer:after {
+.modal-footer:after,
+.ratings-panel:after {
   clear: both;
 }
 .center-block {
@@ -8743,6 +8746,23 @@ button.close {
 /** App wide styles **/
 body {
   background-color: #eee;
+}
+.review-panel {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.ratings-panel {
+  margin-left: -15px;
+  margin-right: -15px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.individual-review {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 /** Module imports **/
 .Calculator {

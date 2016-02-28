@@ -55,6 +55,7 @@ var app = new Vue({
   data: {
     movies: [],
     reviews: [],
+    show: '',
     newReview: {
       name: '',
       rating: '',
@@ -65,12 +66,27 @@ var app = new Vue({
   // methods
   methods: {
     submitReview: function () {
-      console.log('test')
       if(this.newReview.name != '' && this.newReview.rating && this.newReview.movieID)
       Reviews.push(this.newReview)
       this.newReview.name = ''
-      this.newReview.rating = ''
+      this.newReview.rating = '0'
       this.newReview.movieID = ''
+    },
+    showRatings: function(movie) {
+      this.show = movie.id
+    },
+    noRatings: function (movie) {
+      var count = 0
+      this.reviews.some(function (review){
+
+        if(review.movieID == movie.id) {
+          count++
+        }
+
+      })
+      if(!count)
+        return true
+      return false
     },
     averageReviewScore: function (movie) {
       let total = 0
@@ -89,7 +105,6 @@ var app = new Vue({
         let average = total / count
 
         movie.ranking = average
-        console.log(movie.ranking)
         return average
       }
       else {

@@ -35,13 +35,26 @@
           <div class="panel-heading">
             <h2>Movie Rankings</h2>
           </div>
-          <div class="panel-body">
-            <div class="" v-for="movie in movies | orderBy 'ranking'">
-              <div class="col-xs-9">
-                <h4>@{{ movie.name }}</h4>
+          <div class="panel-body review-panel">
+
+            <div class="movie-ratings" v-for="movie in movies | orderBy 'ranking'">
+              <div class="row">
+                <div class="col-xs-6">
+                  <h4>@{{ movie.name }}</h4>
+                </div>
+                <div class="col-xs-3">
+                  <button class="btn" @click="showRatings(movie)"  v-if="show != movie.id" :disabled="noRatings(movie)">view ratings</button>
+                  <button class="btn" v-if="show == movie.id" @click="show = ''">Hide</button>
+
+                </div>
+                <div class="col-xs-3">
+                  <i class="fa fa-star " style="color: gold;" v-for="stars in averageReviewScore(movie)"></i>
+                </div>
               </div>
-              <div class="col-xs-3">
-                <i class="fa fa-star" v-for="stars in averageReviewScore(movie)"></i>
+              <div class="ratings-panel" v-if="show == movie.id">
+                <div class="individual-review" v-for="review in reviews" v-if="review.movieID==movie.id">
+                  <p>Rated <i class="fa fa-star " style="color: gold;" v-for="stars in parseFloat(review.rating)"></i> by @{{review.name}} </p>
+                </div>
               </div>
             </div>
           </div>
