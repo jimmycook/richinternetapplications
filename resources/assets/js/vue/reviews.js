@@ -10,9 +10,6 @@ var Movies = new Firebase(baseURL + 'movies')
 Movies.on('child_added', function (snapshot) {
   var item = snapshot.val()
   item.id = snapshot.key()
-  // Making sure we can add reviews
-  if(!item.reviews)
-    item.reviews = []
   app.movies.push(item)
 })
 
@@ -30,12 +27,13 @@ var Reviews = new Firebase(baseURL + 'reviews')
 
 Reviews.on('child_added', function (snapshot) {
   var item = snapshot.val()
-
+  item.id = snapshot.key()
   app.reviews.push(item)
 })
 
 Reviews.on('child_removed', function (snapshot) {
   var id = snapshot.key()
+  console.log('review removed')
   app.reviews.some(function (review) {
     if (review.id === id) {
       app.reviews.$remove(review)
