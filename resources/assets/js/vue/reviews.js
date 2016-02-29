@@ -65,12 +65,12 @@ var app = new Vue({
   methods: {
     submitReview: function () {
       if(this.newReview.name != '' && this.newReview.rating && this.newReview.movieID != 'placeholder') {
-
+        Reviews.push(this.newReview)
+        this.newReview.name = ''
+        this.newReview.rating = '0'
+        this.newReview.movieID = 'placeholder'
       }
-      Reviews.push(this.newReview)
-      this.newReview.name = ''
-      this.newReview.rating = '0'
-      this.newReview.movieID = 'placeholder'
+
     },
     showRatings: function(movie) {
       this.show = movie.id
