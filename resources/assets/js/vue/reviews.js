@@ -33,7 +33,6 @@ Reviews.on('child_added', function (snapshot) {
 
 Reviews.on('child_removed', function (snapshot) {
   var id = snapshot.key()
-  console.log('review removed')
   app.reviews.some(function (review) {
     if (review.id === id) {
       app.reviews.$remove(review)
