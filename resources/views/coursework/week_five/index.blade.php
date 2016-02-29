@@ -67,9 +67,6 @@
             </div>
           </div>
         </div>
-      <pre>
-      @{{ newReview | json }}
-      </pre>
     </div>
 </div>
 
