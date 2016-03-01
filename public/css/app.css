@@ -8939,5 +8939,13 @@ body {
   color: #eee;
   padding-right: 28px;
 }
+.Menu__container {
+  margin: 2em 0;
+  padding: 0.5em;
+  background-color: white;
+}
+.Menu__movie_info {
+  margin: 0.5em 0;
+}
 
 /*# sourceMappingURL=app.css.map */

@@ -29,8 +29,17 @@ class CourseworkController extends Controller
     public function weekThree()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
-        return view('coursework.week_three.index', ['movies' => $movies]);
+        $genres = [];
+
+        foreach($movies as $movie)
+        {
+            if(!isset($genres[$movie->genre]))
+            {
+                $genres[$movie->genre] = [];
+            }
+            $genres[$movie->genre][] = $movie;
+        }
+        return view('coursework.week_three.index', ['movies' => $movies, 'genres' => $genres]);
     }
 
     public function weekFour()

@@ -1,4 +1,4 @@
-// Importing libararies 
+// Importing libararies
 window.$ = window.jQuery = require('jquery');
 var moment = require('moment');
 import Vue from 'vue';
@@ -12,11 +12,8 @@ import Reviews from './components/Reviews.vue';
 require('./jquery/app.js');
 require('./vue/reviews.js')
 
-// Start the vue instance 
+// Start the vue instance
 new Vue({
   el: 'body',
   components: { App }
 });
-
-
-

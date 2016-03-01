@@ -26627,19 +26627,23 @@ exports.Calculator = Calculator;
 
 var _Calculator = require('./Calculator');
 
-// Create the calculator object
-var calculator = new _Calculator.Calculator($('.Calculator__output'));
-
-// event for each of the elements
 // -------------------------------|
 // Carousel
 // -------------------------------|
-// $("#carousel").carousel();
+$("#carousel").carousel();
+
+$('#Menu__tabs a:first').tab('show');
 
 // -------------------------------|
 // Calculator stuff
 // -------------------------------|
 // Import the calculator
+
+
+// Create the calculator object
+var calculator = new _Calculator.Calculator($('.Calculator__output'));
+
+// event for each of the elements
 $('.Calculator__row>span').click(function () {
     var clicked = $(this).data('value');
     calculator.input(clicked);

@@ -1,12 +1,15 @@
 // -------------------------------|
 // Carousel
 // -------------------------------|
-// $("#carousel").carousel();
+$("#carousel").carousel();
+
+
+$('#Menu__tabs a:first').tab('show');
 
 // -------------------------------|
 // Calculator stuff
 // -------------------------------|
-// Import the calculator 
+// Import the calculator
 import { Calculator } from './Calculator';
 
 // Create the calculator object
