@@ -12,9 +12,11 @@ My coursework for Rich Internet Applications at Abertay University.
 2. Clone the .env.example file as .env in the project root.
 3. Enter the database details into the .env file.
 4. In the commandline, navigate to the project root and run the following commands:
-    * composer install
-    * npm install
-    * php artisan key:generate
-    * php artisan migrate
-    * php artisan db:seed
-    * gulp
+```bash
+ composer install
+ npm install
+ php artisan key:generate
+ php artisan migrate
+ php artisan db:seed
+ gulp
+```
