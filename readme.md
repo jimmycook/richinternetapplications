@@ -5,6 +5,7 @@ My coursework for Rich Internet Applications at Abertay University.
 ## System Requirements
 * PHP 5.5.9 >= for Laravel 5.2 https://github.com/laravel/laravel
 * Composer https://getcomposer.org/
+* nodejs & npm https://nodejs.org/en/
 
 ## Setting up this project
 
