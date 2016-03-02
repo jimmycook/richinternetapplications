@@ -26632,7 +26632,23 @@ var _Calculator = require('./Calculator');
 // -------------------------------|
 $("#carousel").carousel();
 
+// Menu Page
 $('#Menu__tabs a:first').tab('show');
+
+$('#Menu__nav a:first').tab('show');
+
+// Movie Info AJAX
+$('.get-movie-info').click(function (elem) {
+    var slug = $(this).data('movie-slug');
+    $.ajax({
+        url: '/api/movie/slug/' + slug,
+        success: function success(data) {
+            $('#movie-info-title').text(data.name);
+            $('#movie-info-description').text(data.description);
+            $('#movie-info-modal').modal('toggle');
+        }
+    });
+});
 
 // -------------------------------|
 // Calculator stuff

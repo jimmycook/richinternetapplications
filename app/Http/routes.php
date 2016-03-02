@@ -4,6 +4,7 @@
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
     Route::get('movies', 'ApiController@getMovies');
     Route::get('movie/{id}', 'ApiController@getMovie');
+    Route::get('movie/slug/{slug}', 'ApiController@getMovieWithSlug');
     Route::get('movie/mobile/{id}', 'ApiController@getMobileMovieInfo');
     Route::get('showings', 'ApiController@getAllShowings');
     Route::get('showings/upcoming', 'ApiController@getUpcomingShowings');
@@ -23,5 +24,5 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('5', 'CourseworkController@weekFive');
         Route::get('6', 'CourseworkController@weekSix');
     });
-    
+
 });

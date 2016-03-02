@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
-    
+
     public function getAllShowings(Request $request)
     {
         return Showing::all();
@@ -27,9 +27,14 @@ class ApiController extends Controller
         return Movie::get();
     }
 
+    public function getMoviewithSlug(Request $request, $slug)
+    {
+        return Movie::where('slug', '=', $slug)->get()->first();
+    }
+
     public function getMobileMovieInfo(Request $request, $id)
     {
-        $movie = Movie::where('id', '=', $id)->get()->first();        
+        $movie = Movie::where('id', '=', $id)->get()->first();
         return view('coursework.week_four.page', ['movie' => $movie]);
     }
 
@@ -40,6 +45,6 @@ class ApiController extends Controller
 
     public function createBooking(Request $request)
     {
-        
+
     }
 }

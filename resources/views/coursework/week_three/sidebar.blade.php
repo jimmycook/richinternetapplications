@@ -11,8 +11,6 @@
                         {{$movie->description}}
                     </p>
                 </div>
-
-
             @endforeach
         </div>
         @endforeach
