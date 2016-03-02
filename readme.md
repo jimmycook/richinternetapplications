@@ -17,5 +17,4 @@ My coursework for Rich Internet Applications at Abertay University.
  php artisan key:generate
  php artisan migrate
  php artisan db:seed
- gulp
 ```
