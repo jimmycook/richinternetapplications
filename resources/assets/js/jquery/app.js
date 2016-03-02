@@ -3,7 +3,6 @@
 // -------------------------------|
 $("#carousel").carousel();
 
-
 // Menu Page
 $('#Menu__tabs a:first').tab('show');
 

@@ -21,6 +21,7 @@ class CourseworkController extends Controller
     public function weekTwo()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
+        return view('coursework.week_two.index', ['movies' => $movies]);
     }
 
     public function weekThree()
