@@ -9,7 +9,7 @@ $('#Menu__tabs a:first').tab('show');
 
 $('#Menu__nav a:first').tab('show');
 
-// Movie Info AJAX
+// Movie Info
 $('.get-movie-info').click(function (elem) {
     var slug = $(this).data('movie-slug');
     $.ajax({

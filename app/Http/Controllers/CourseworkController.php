@@ -15,15 +15,12 @@ class CourseworkController extends Controller
     public function weekOne()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
         return view('coursework.week_one.index', ['movies' => $movies]);
     }
 
     public function weekTwo()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
-        return view('coursework.week_two.index', ['movies' => $movies]);
     }
 
     public function weekThree()
@@ -45,21 +42,18 @@ class CourseworkController extends Controller
     public function weekFour()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
         return view('coursework.week_four.index', ['movies' => $movies]);
     }
 
     public function weekFive()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
         return view('coursework.week_five.index', ['movies' => $movies]);
     }
 
     public function weekSix()
     {
         $movies = Movie::orderBy('ranking', 'asc')->get();
-        // dd($movies);
         return view('coursework.week_six.index', ['movies' => $movies]);
     }
 
