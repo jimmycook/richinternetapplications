@@ -5,7 +5,6 @@ My coursework for Rich Internet Applications at Abertay University.
 ## System Requirements
 * PHP 5.5.9 >= for Laravel 5.2 https://github.com/laravel/laravel
 * Composer https://getcomposer.org/
-* nodejs & npm https://nodejs.org/en/
 
 ## Setting up this project
 
@@ -15,7 +14,6 @@ My coursework for Rich Internet Applications at Abertay University.
 4. In the commandline, navigate to the project root and run the following commands:
 ```bash
  composer install
- npm install
  php artisan key:generate
  php artisan migrate
  php artisan db:seed
