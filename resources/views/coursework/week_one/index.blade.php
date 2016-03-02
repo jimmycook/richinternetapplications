@@ -5,8 +5,7 @@
     <h1>Movies</h1>
     @foreach($movies->chunk(4) as $chunk)
         <div class="row">
-            @foreach($chunk as $movie)
-            {{ $nah }}
+            @foreach($chunk as $movie)            
                 <article class="col-lg-3 col-sm-6">
                     <div class="panel">
                         <div class="panel-body">

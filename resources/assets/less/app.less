@@ -1,10 +1,38 @@
 @import "node_modules/bootstrap/less/bootstrap";
+@import "node_modules/font-awesome/less/font-awesome";
 
-// App wide styles
+
+/** App wide styles **/
 body {
     background-color: #eee;
 }
 
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
-// Module imports
+    min-height: 100px;
+}
+
+.review-panel {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ratings-panel {
+  .row;
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.individual-review {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+/** Module imports **/
 @import "resources/assets/less/components/Calculator";
+
+@import "resources/assets/less/components/Menus";
