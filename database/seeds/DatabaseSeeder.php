@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use App\Movie;
+use App\Cinema;
+use App\Showing;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -131,5 +134,20 @@ class DatabaseSeeder extends Seeder
         $m->description = "Forrest Gump is a 1994 American epic romantic-comedy-drama film based on the 1986 novel of the same name by Winston Groom. The film was directed by Robert Zemeckis and stars Tom Hanks, Robin Wright, Gary Sinise, Mykelti Williamson, and Sally Field. The story depicts several decades in the life of Forrest Gump, a slow-witted and naïve, but good-hearted and athletically prodigious man from Alabama who witnesses, and in some cases influences, some of the defining events of the latter half of the 20th century in the United States; more specifically, the period between Forrest's birth in 1944 and 1982. The film differs substantially from Winston Groom's novel, including Gump's personality and several events that were depicted.";
         $m->admission_price = 899;
         $m->save();
+
+        $c = new Cinema();
+        $c->name = 'Omni Cinema';
+        $c->location = 'Edinburgh';
+        $c->screens = 3;
+        $c->save();
+
+        $s = new Showing();
+        $s->screen = 1;
+        $s->seats = 100;
+        $s->price = 999;
+        $s->cinema_id = 1;
+        $s->movie_id = 1;
+        $s->start_time = Carbon::create(2016, 7, 10, 13, 0);
+        $s->save();
     }
 }

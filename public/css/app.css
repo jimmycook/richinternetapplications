@@ -8955,6 +8955,27 @@ footer {
   color: #eee;
   padding-right: 28px;
 }
+.movie-list {
+  background-color: #333;
+  padding: 10px;
+  color: #eee;
+}
+.movie {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  background-color: #333;
+  color: #eee;
+}
+.showings {
+  margin: 10px;
+  padding: 10px;
+}
+.thumbnail-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 .Menu__container {
   margin: 3em 0;
   padding: 1em;

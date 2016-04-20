@@ -1,23 +1,14 @@
 <template>
-  	<div class="container-fluid" id="app">
-    	<h1>Movie Booker</h1>
-    	<movie-picker></movie-picker>
-  	</div>
+ 	<movie-list></movie-list>
 </template>
 
 <script>
 import Hello from './components/Hello.vue'
-import MoviePicker from './components/MoviePicker.vue'
+import MovieList from './components/pages/MovieList.vue'
 
 export default {
     components: {
-        MoviePicker
+        MovieList
     }
 }
 </script>
-
-<style>
-body {
-    font-family: Helvetica, sans-serif;
-}
-</style>

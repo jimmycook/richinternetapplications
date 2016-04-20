@@ -4,16 +4,16 @@
  * @author  Jimmy Cook
  */
 
-// Load class dependencies here, these need to 
+// Load class dependencies here, these need to
 // be installed via npm
 require('jquery');
 var fx = require('money');
 
 class Calculator {
 
-    // Accepts an element (could also just be a selector) for the output of the 
+    // Accepts an element (could also just be a selector) for the output of the
     // calculator
-    // 
+    //
     // and also a debug field, which is used to log the object to the console
     // on this.refresh() when set to true
     constructor(element, debug = false) {
@@ -24,7 +24,7 @@ class Calculator {
     }
 
     // Input handler
-    // 
+    //
     // Value is the current input to the calculator
     input(value) {
         if(value >= 0 && value <= 9) this.digitPressed(value);
@@ -59,7 +59,7 @@ class Calculator {
         }
     }
 
-    // Add a character to the output string 
+    // Add a character to the output string
     addCharacter(character) {
         this.output = String(this.output);
         this.output = this.output + character;
@@ -67,7 +67,7 @@ class Calculator {
 
     // Set the operator object up
     setOperator(operator) {
-        // Run the current operation if you need to     
+        // Run the current operation if you need to
         if(this.operation.operator != "" && this.output != 0 && !this.ran) {
             this.run();
         }
@@ -90,33 +90,33 @@ class Calculator {
 
     // Run the current operation
     run() {
-        // If the user has been editing and there's an operator 
+        // If the user has been editing and there's an operator
         if(this.editing && this.operation.operator != ""){
             // Set the value and stop editing
-            this.operation.value = this.output;            
+            this.operation.value = this.output;
             this.editing = false;
         }
         // Sanity check the operation
         if(this.operation.operator != "" && this.operation.value != "") {
-            // Execute the operation and output it 
+            // Execute the operation and output it
             this.executeOperation();
         }
         this.ran = true;
     }
 
     // Execute an operation on the current stored number
-    // 
+    //
     // Accepts an operation object with the fields operator and value
     executeOperation(operation = this.operation) {
         let firstNum = String(this.stored);
         let operator = String(operation.operator);
         let secondNum = String(operation.value);
-        let evalString = firstNum + operator + secondNum;    
-        this.stored = eval(firstNum + operator + secondNum);        
+        let evalString = firstNum + operator + secondNum;
+        this.stored = eval(firstNum + operator + secondNum);
         this.output = this.stored;
     }
 
-    // Reset the calculator state 
+    // Reset the calculator state
     resetState() {
         this.output = 0;
         this.stored = "";
@@ -131,9 +131,9 @@ class Calculator {
 
     // Currency conversion using money.js
     convert(value, from, to) {
-        // Run the convertion 
+        // Run the convertion
         let converted = fx(value).from(from).to(to);
-        this.stored = converted.toFixed(2);    
+        this.stored = converted.toFixed(2);
         this.output = this.stored;
         // clear the operation
         this.operation = {
@@ -143,6 +143,7 @@ class Calculator {
         // cleanup attributes
         this.ran = false;
         this.editing = false;
+        return converted;
     }
 
     // Setup exchange rates from the money library using ajax
@@ -152,7 +153,7 @@ class Calculator {
         $.getJSON(apiUrl, function(data) {
             fx.rates = data.rates;
             fx.base = data.base;
-        });        
+        });
     }
 
     // Output the current output variable

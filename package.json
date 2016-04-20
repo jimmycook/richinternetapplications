@@ -8,7 +8,8 @@
     "laravel-elixir-vueify": "^1.0.2",
     "moment": "^2.11.1",
     "money": "^0.2.0",
-    "vue": "^1.0.15"
+    "vue": "^1.0.15",
+    "vue-router": "^0.7.13"
   },
   "devDependencies": {
     "babel": "^6.3.26",

@@ -14,6 +14,9 @@ class CreateShowingsTable extends Migration
     {
         Schema::create('showings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('seats')->unsigned();
+            $table->integer('screen')->unsigned();
+            $table->integer('price')->unsigned();
             $table->integer('cinema_id')->unsigned();
             $table->foreign('cinema_id')->references('id')->on('cinemas');
             $table->integer('movie_id')->unsigned();

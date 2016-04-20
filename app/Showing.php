@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Showing extends Model
-{   
+{
 
     /**
      * The related models to be returned with this model.

@@ -1,4 +1,8 @@
 <?php
+use Illuminate\Http\Request;
+use App\Showing;
+use App\User;
+
 
 // Api Routes
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
@@ -14,14 +18,25 @@ Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
     Route::get('showings', 'ApiController@getAllShowings');
     // All upcoming showings
     Route::get('showings/upcoming', 'ApiController@getUpcomingShowings');
+
+    Route::get('showings/{slug}', 'ApiController@getMovieShowings');
     // All bookings
     Route::post('booking', 'ApiController@createBooking');
+
+    Route::get('user/{id}', function (Request $request, $id) {
+        return User::find($id)->get()->first();
+    });
+
 });
 
 // Web Routes
 Route::group(['middleware' => ['web']], function () {
-    // SPA
-    Route::get('/', 'CourseworkController@singlePageApp');
+
+    Route::group(['middleware' => ['auth']], function () {
+        // SPA
+        Route::get('/', 'CourseworkController@singlePageApp');
+        Route::get('mobile', 'CourseworkController@mobile');
+    });
 
     // Weekly coursework
     Route::group(['prefix' => 'week'], function () {
@@ -32,5 +47,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('5', 'CourseworkController@weekFive');
         Route::get('6', 'CourseworkController@weekSix');
     });
+
+    // Add the auth routes
+    Route::auth();
 
 });

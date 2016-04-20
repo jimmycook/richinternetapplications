@@ -62,4 +62,11 @@ class CourseworkController extends Controller
     {
         return view('spa');
     }
+
+    public function mobile()
+    {
+        $user = \Auth::user();
+
+        return view('mobile', ['user' => $user]);
+    }
 }

@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    
+
     /**
      * The related models to be returned with this model.
      * @var array
      */
-    protected $with = array('user', 'showing');
+    protected $with = array('showing');
 
     /**
      * Get the associated user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -25,7 +25,7 @@ class Booking extends Model
 
     /**
      * Get the associated showing.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function showing()

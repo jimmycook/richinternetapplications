@@ -7,7 +7,6 @@ import Firebase from 'firebase';
 
 // Importing my own code
 import App from './App.vue';
-import Reviews from './components/Reviews.vue';
 
 require('./jquery/app.js');
 require('./vue/reviews.js')
