@@ -12,7 +12,7 @@ require('./jquery/app.js');
 require('./vue/reviews.js')
 
 // Start the vue instance
-new Vue({
+var vm = new Vue({
   el: 'body',
   components: { App }
 });
