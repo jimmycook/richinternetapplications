@@ -16,3 +16,6 @@ new Vue({
   el: 'body',
   components: { App }
 });
+
+
+var test = "test"
